@@ -1,0 +1,26 @@
+<ivy-module version="1.0" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<info organisation="zgy" module="jpetstore" />
+
+	<configurations>
+		<conf name="build"/>
+		<conf name="deploy"/>
+		<!-- 
+		 -->
+	</configurations>
+	<!-- 
+	<publications>
+    	<artifact name="server" type="zip"/>
+    </publications>
+	 -->
+	<dependencies>
+		<dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="build->*;deploy->*" transitive="false"/>   
+		<dependency org="log4j" name="log4j" rev="1.2.15" conf="build->*;deploy->*" transitive="false"/>
+		<dependency org="javax.xml" name="jaxrpc-api" rev="1.1" conf="build->*;deploy->*" transitive="false"/>
+		<dependency org="org.mockito" name="mockito-all" rev="1.8.5" conf="build->*" transitive="false"/>
+		
+		<dependency org="javax.servlet" name="jstl" rev="1.1.0" conf="deploy->*" transitive="false"/>
+		<dependency org="taglibs" name="standard" rev="1.1.2" conf="deploy->*" transitive="false"/>
+	</dependencies>
+
+</ivy-module>
