@@ -2,7 +2,7 @@ package cqrs.domain;
 
 import java.util.UUID;
 
-import org.hsqldb.lib.StringUtil;
+import org.apache.commons.lang.StringUtils;
 
 import cqrs.events.InventoryItemCreated;
 import cqrs.events.InventoryItemDeactivated;
@@ -20,7 +20,7 @@ public class InventoryItem extends AggregateRoot{
 	}
 
 	public void changeName(String newName) {
-        if (StringUtil.isEmpty(newName)) throw new IllegalArgumentException("newName");
+        if (StringUtils.isEmpty(newName)) throw new IllegalArgumentException("newName");
         applyChange(new InventoryItemRenamed(id, newName));
 	}
 	
