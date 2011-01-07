@@ -15,7 +15,7 @@
 	<ivy:resolve file="${ivy.dir}/ivy.xml"/>
 
 	<target name="retrieve.dependencies">
-		<ivy:retrieve pattern="${lib.dir}/[conf]/[artifact]-[revision](-[classifier]).[ext]" />
+		<ivy:retrieve pattern="${lib.dir}/[conf]/[artifact]-[revision](-[classifier]).[ext]" sync="true"/>
 		<delete dir="${weblib.dir}"/>
 		<copy todir="${weblib.dir}">
 		    <fileset dir="${lib.dir}/deploy" excludes="*sources*,*javadoc*"/>

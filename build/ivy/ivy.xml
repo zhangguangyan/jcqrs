@@ -14,6 +14,7 @@
     </publications>
 	 -->
 	<dependencies>
+		<dependency org="commons-lang" name="commons-lang" rev="2.5" conf="build->*;deploy->*" transitive="false"/>
 		<dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="build->*;deploy->*" transitive="false"/>   
 		<dependency org="log4j" name="log4j" rev="1.2.15" conf="build->*;deploy->*" transitive="false"/>
 		<dependency org="javax.xml" name="jaxrpc-api" rev="1.1" conf="build->*;deploy->*" transitive="false"/>
