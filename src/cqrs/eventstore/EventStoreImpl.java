@@ -57,9 +57,9 @@ public class EventStoreImpl implements EventStore {
         public final int version;
 
         public EventDescriptor(UUID id, Event eventData, int version) {
+        	this.id = id;
             this.eventData = eventData;
             this.version = version;
-            this.id = id;
         }
     }
 }

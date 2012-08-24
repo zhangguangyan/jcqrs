@@ -9,8 +9,8 @@ import cqrs.events.Event;
 
 public class FakeBus  implements CommandSender, EventPublisher
 {
-    private final HashMap<Class, List<Handler>> routes = new HashMap<Class,List<Handler>>();
-
+    private final HashMap<Class<?>, List<Handler>> routes = new HashMap<Class<?>,List<Handler>>();
+    
     public <T extends Message> void registerHandler(Class<T> type,Handler<T> handler) {
         List<Handler> handlers = routes.get(type);
    
@@ -27,7 +27,7 @@ public class FakeBus  implements CommandSender, EventPublisher
         List<Handler> handlers = routes.get(command.getClass()); 
         if (handlers!=null) {
             if (handlers.size() != 1) throw new RuntimeException("cannot send to more than one handler");
-            Handler handler = handlers.get(0);
+            Handler<T> handler = handlers.get(0);
             handler.handle(command);
         } else {
             throw new RuntimeException("no handler registered");

@@ -11,6 +11,7 @@ import cqrs.events.ItemsCheckedInToInventory;
 import cqrs.events.ItemsRemovedFromInventory;
 
 public class InventoryItem extends AggregateRoot{
+	@SuppressWarnings("unused")
 	private String name;
 	private int currentCount;
     private boolean activated;
@@ -65,7 +66,7 @@ public class InventoryItem extends AggregateRoot{
 
     protected void apply(InventoryItemDeactivated e) {
     	this.id = e.id;
-        activated = false;
+        this.activated = false;
     }
 
     public InventoryItem() {

@@ -7,22 +7,22 @@ import cqrs.events.Event;
 import cqrs.eventstore.EventStore;
 
 public class RepositoryImpl<T extends AggregateRoot> implements Repository<T> {
-	private final EventStore storage;
+	private final EventStore eventStore;
 	
 	public RepositoryImpl(EventStore storage) {
-		this.storage = storage;
+		this.eventStore = storage;
 	}
 
 	@Override
 	public void save(T aggregate, int expectedVersion) {
-		storage.saveEvents(aggregate.id, aggregate.getUncommittedChanges(), expectedVersion);
+		eventStore.saveEvents(aggregate.id, aggregate.getUncommittedChanges(), expectedVersion);
 	}
 
 	@Override
 	public T getById(Class<T> type,UUID id) {
 		try {
 			T obj = type.newInstance();
-			List<Event> history = storage.getEventsForAggregate(id);
+			List<Event> history = eventStore.getEventsForAggregate(id);
 			obj.loadsFromHistory(history);
 			
 			return obj;
