@@ -3,13 +3,13 @@ package ui.mvc;
 import java.util.Map;
 import java.util.UUID;
 
-import cqrs.bus.FakeBus;
-import cqrs.commands.CheckInItemsToInventory;
-import cqrs.commands.CreateInventoryItem;
-import cqrs.commands.DeactivateInventoryItem;
-import cqrs.commands.RemoveItemsFromInventory;
-import cqrs.commands.RenameInventoryItem;
-import cqrs.readModel.ReadModelFacade;
+import cqrs.core.bus.FakeBus;
+import cqrs.mr.commands.CheckInItemsToInventory;
+import cqrs.mr.commands.CreateInventoryItem;
+import cqrs.mr.commands.DeactivateInventoryItem;
+import cqrs.mr.commands.RemoveItemsFromInventory;
+import cqrs.mr.commands.RenameInventoryItem;
+import cqrs.mr.readModel.ReadModelFacade;
 
 public class HomeController implements Controller {
 	private FakeBus bus;
