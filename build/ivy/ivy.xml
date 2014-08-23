@@ -1,6 +1,6 @@
 <ivy-module version="1.0" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-	<info organisation="zgy" module="jpetstore" />
+	<info organisation="zgy" module="jcqrs" />
 
 	<configurations>
 		<conf name="build"/>
