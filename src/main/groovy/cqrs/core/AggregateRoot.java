@@ -32,6 +32,7 @@ public abstract class AggregateRoot {
 	private void applyChange(Event event, boolean isNew) {
 		try {
 			Method m = getClass().getDeclaredMethod("apply", event.getClass());
+			m.setAccessible(true);
 			m.invoke(this, event);
 			
 			if (isNew)

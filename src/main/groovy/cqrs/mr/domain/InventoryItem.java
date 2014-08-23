@@ -44,13 +44,13 @@ public class InventoryItem extends AggregateRoot{
     }
 
     /* state change */
-    public void apply(InventoryItemCreated e) {
+    protected void apply(InventoryItemCreated e) {
         this.id = e.id;
         this.name = e.name;
         this.activated = true;
     }
     
-    public void apply(InventoryItemRenamed e) {
+    protected void apply(InventoryItemRenamed e) {
         this.id = e.id;
         this.name = e.newName;
     }
@@ -60,12 +60,12 @@ public class InventoryItem extends AggregateRoot{
         this.currentCount = e.count;
     }
     
-    public void apply(ItemsCheckedInToInventory e) {
+    protected void apply(ItemsCheckedInToInventory e) {
         this.id = e.id;
         this.currentCount = e.count;
     }
 
-    public void apply(InventoryItemDeactivated e) {
+    protected void apply(InventoryItemDeactivated e) {
     	this.id = e.id;
         this.activated = false;
     }
