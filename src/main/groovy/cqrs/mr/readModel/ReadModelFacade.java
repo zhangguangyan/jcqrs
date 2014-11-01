@@ -12,6 +12,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
 
@@ -27,13 +28,16 @@ public class ReadModelFacade {
 		DB db = mongo.getDB("inventory");
 		DBCollection items = db.getCollection("items");
 		BasicDBObject keys = new BasicDBObject("_id", 0)
-			.append("name", 1);
+			.append("id", 1).append("name", 1);
 		DBCursor all = items.find(new BasicDBObject(), keys);
 		return mapper.readValue(JSON.serialize(all.toArray()), new TypeReference<List<InventoryItemListDto>>() {});
 	}
 
-	public InventoryItemDetailsDto getInventoryItemDetails(UUID id) {
-		//return new InventoryItemDetailsDto(id,"name",10,1);
-		return BullShitDatabase.details.get(id);
+	public InventoryItemDetailsDto getInventoryItemDetails(UUID id) throws JsonParseException, JsonMappingException, IOException {
+		DB db = mongo.getDB("inventory");
+		DBCollection items = db.getCollection("items");
+		BasicDBObject keys = new BasicDBObject("_id", 0);
+		DBObject item = items.findOne(new BasicDBObject("id", id.toString()), keys);
+		return mapper.readValue(JSON.serialize(item), InventoryItemDetailsDto.class);
 	}
 }

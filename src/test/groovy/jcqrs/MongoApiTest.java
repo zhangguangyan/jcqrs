@@ -13,15 +13,17 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
 
+import cqrs.mr.readModel.InventoryItemDetailsDto;
 import cqrs.mr.readModel.InventoryItemListDto;
 
 public class MongoApiTest {
 
 	@Test
-	public void test() throws JsonParseException, JsonMappingException, IOException {
+	public void test1() throws JsonParseException, JsonMappingException, IOException {
 		MongoClient mongo = new MongoClient();
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -69,9 +71,20 @@ public class MongoApiTest {
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
-
-
 		 */
 	}
+	@Test
+	public void test2() throws JsonParseException, JsonMappingException, IOException {
+		MongoClient mongo = new MongoClient();
+		ObjectMapper mapper = new ObjectMapper();
 
+		DB db = mongo.getDB("inventory");
+		DBCollection items = db.getCollection("items");
+		BasicDBObject keys = new BasicDBObject("_id", 0);
+
+		DBObject item = items.findOne(new BasicDBObject("id", "45091d84-ac87-4bbe-be5e-0e5c56712698"), keys);
+		InventoryItemDetailsDto itemDetails = mapper.readValue(JSON.serialize(item), InventoryItemDetailsDto.class);
+		
+		System.out.println(itemDetails.getName());
+	}
 }

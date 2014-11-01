@@ -29,7 +29,7 @@ public class HomeController implements Controller {
 		return new View("index.jsp", "inventoryItems",readmodel.getInventoryItems());
 	}
 	
-	public View details(Map params) {
+	public View details(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 		
 		return new View("details.jsp", "inventoryItem", readmodel.getInventoryItemDetails(id));
@@ -47,7 +47,7 @@ public class HomeController implements Controller {
 		return new View("add.jsp");
 	}
 	
-	public View changeNamePage(Map params) {
+	public View changeNamePage(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 
 		readmodel.getInventoryItemDetails(id);
@@ -73,7 +73,7 @@ public class HomeController implements Controller {
 		return new View("index.do");
 	}
 	
-	public View checkInPage(Map params) {
+	public View checkInPage(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 
 		readmodel.getInventoryItemDetails(id);
@@ -90,7 +90,7 @@ public class HomeController implements Controller {
 		return new View("index.do");
 		
 	}
-	public View removePage(Map params) {
+	public View removePage(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 
 		readmodel.getInventoryItemDetails(id);

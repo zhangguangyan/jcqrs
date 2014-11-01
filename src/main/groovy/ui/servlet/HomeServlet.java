@@ -33,9 +33,8 @@ import cqrs.mr.events.InventoryItemDeactivated;
 import cqrs.mr.events.InventoryItemRenamed;
 import cqrs.mr.events.ItemsCheckedInToInventory;
 import cqrs.mr.events.ItemsRemovedFromInventory;
-import cqrs.mr.readModel.ListView;
 import cqrs.mr.readModel.ReadModelFacade;
-import cqrs.mr.readModel.detailsview.DetailsView;
+import cqrs.mr.readModel.mongo.DetailsView;
 
 public class HomeServlet extends HttpServlet {
 
@@ -68,18 +67,11 @@ public class HomeServlet extends HttpServlet {
         
         //--event handlers: details view
         DetailsView detailsView = new DetailsView();
-        bus.registerHandler(InventoryItemCreated.class,detailsView.createInventoryItemCreatedHandler());
-        bus.registerHandler(InventoryItemDeactivated.class, detailsView.createInventoryItemDeactivatedHandler());
-        bus.registerHandler(InventoryItemRenamed.class, detailsView.createInventoryItemRenamedHandler());
-        bus.registerHandler(ItemsCheckedInToInventory.class, detailsView.createItemsCheckedInToInventoryHandler());
-        bus.registerHandler(ItemsRemovedFromInventory.class, detailsView.createItemsRemovedFromInventoryHandler());
-
-        //--event handlers: list view
-        ListView listView = new ListView();
-        bus.registerHandler(InventoryItemCreated.class, listView.createInventoryItemCreatedHandler());
-        bus.registerHandler(InventoryItemRenamed.class, listView.createInventoryItemRenamedHandler());
-        bus.registerHandler(InventoryItemDeactivated.class, listView.createInventoryItemDeactivatedHandler());
-
+        bus.registerHandler(InventoryItemCreated.class,detailsView.createInventoryItemCreatedHandler(mongo));
+        bus.registerHandler(InventoryItemDeactivated.class, detailsView.createInventoryItemDeactivatedHandler(mongo));
+        bus.registerHandler(InventoryItemRenamed.class, detailsView.createInventoryItemRenamedHandler(mongo));
+        bus.registerHandler(ItemsCheckedInToInventory.class, detailsView.createItemsCheckedInToInventoryHandler(mongo));
+        bus.registerHandler(ItemsRemovedFromInventory.class, detailsView.createItemsRemovedFromInventoryHandler(mongo));
 
    		ReadModelFacade readmodel = new ReadModelFacade(mongo);
         Controller controller = new HomeController(bus,readmodel);
