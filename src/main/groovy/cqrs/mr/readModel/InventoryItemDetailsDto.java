@@ -16,6 +16,12 @@ public class InventoryItemDetailsDto {
 		this.version = version;
 	}
 
+	public InventoryItemDetailsDto(String name, int currentCount, int version) {
+		this.name = name;
+		this.currentCount = currentCount;
+		this.version = version;
+	}
+
 	public UUID getId() {
 		return id;
 	}

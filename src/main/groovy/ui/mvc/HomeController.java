@@ -1,7 +1,11 @@
 package ui.mvc;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import cqrs.core.bus.FakeBus;
 import cqrs.mr.commands.CheckInItemsToInventory;
@@ -20,7 +24,7 @@ public class HomeController implements Controller {
 		this.readmodel = readModel;
 	}
 
-	public View index() {
+	public View index() throws JsonParseException, JsonMappingException, IOException {
 
 		return new View("index.jsp", "inventoryItems",readmodel.getInventoryItems());
 	}

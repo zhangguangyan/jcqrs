@@ -1,16 +1,35 @@
 package cqrs.mr.readModel;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-public class ReadModelFacade {
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
+import com.mongodb.util.JSON;
 
-	public List<InventoryItemListDto> getInventoryItems() {
-//		List<InventoryItemListDto> items = new ArrayList<InventoryItemListDto>();
-//		items.add(new InventoryItemListDto(UUID.randomUUID(),"name1111"));
-//		return items;
-		return BullShitDatabase.list;
+public class ReadModelFacade {
+	private MongoClient mongo;
+	private ObjectMapper mapper = new ObjectMapper();
+
+	public ReadModelFacade(MongoClient mongo) {
+		this.mongo = mongo;
+	}
+
+	public List<InventoryItemListDto> getInventoryItems() throws JsonParseException, JsonMappingException, IOException {
+		DB db = mongo.getDB("inventory");
+		DBCollection items = db.getCollection("items");
+		BasicDBObject keys = new BasicDBObject("_id", 0)
+			.append("name", 1);
+		DBCursor all = items.find(new BasicDBObject(), keys);
+		return mapper.readValue(JSON.serialize(all.toArray()), new TypeReference<List<InventoryItemListDto>>() {});
 	}
 
 	public InventoryItemDetailsDto getInventoryItemDetails(UUID id) {
