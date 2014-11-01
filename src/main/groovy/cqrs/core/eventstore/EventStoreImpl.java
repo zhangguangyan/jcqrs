@@ -1,4 +1,4 @@
-package cqrs.mr.eventstore;
+package cqrs.core.eventstore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,12 +9,10 @@ import cqrs.core.Event;
 import cqrs.core.EventPublisher;
 import cqrs.core.EventStore;
 
-
-
 public class EventStoreImpl implements EventStore {
 	private final EventPublisher publisher;
 	private final HashMap<UUID, List<EventDescriptor>> current = new HashMap<UUID, List<EventDescriptor>>(); 
-	
+
 	public EventStoreImpl(EventPublisher publisher){
 		this.publisher = publisher;
 	}
@@ -22,15 +20,15 @@ public class EventStoreImpl implements EventStore {
 	@Override
     public void saveEvents(UUID aggregateId, List<Event> events, int expectedVersion) {
         List<EventDescriptor> eventDescriptors = current.get(aggregateId);
-        if(eventDescriptors==null) {
+        if (eventDescriptors == null) {
             eventDescriptors = new ArrayList<EventDescriptor>();
             current.put(aggregateId,eventDescriptors);
-        } else if(eventDescriptors.get(eventDescriptors.size() - 1).version != expectedVersion && expectedVersion != -1) {
+        } else if (eventDescriptors.get(eventDescriptors.size() - 1).version != expectedVersion && expectedVersion != -1) {
             throw new ConcurrencyException();
         }
         //add events
         int i = expectedVersion;
-        for (Event event : events){
+        for (Event event : events) {
             i++;
             event.version = i;
             eventDescriptors.add(new EventDescriptor(aggregateId,event,i));

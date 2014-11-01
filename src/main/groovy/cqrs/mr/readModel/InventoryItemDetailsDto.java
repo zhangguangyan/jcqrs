@@ -8,9 +8,16 @@ public class InventoryItemDetailsDto {
 	public int currentCount;
 	public int version;
 
+	public InventoryItemDetailsDto() {}
 	public InventoryItemDetailsDto(UUID id, String name, int currentCount,
 			int version) {
 		this.id = id;
+		this.name = name;
+		this.currentCount = currentCount;
+		this.version = version;
+	}
+
+	public InventoryItemDetailsDto(String name, int currentCount, int version) {
 		this.name = name;
 		this.currentCount = currentCount;
 		this.version = version;

@@ -1,6 +1,7 @@
 package ui.servlet;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import ui.mvc.Controller;
 import ui.mvc.HomeController;
+
+import com.mongodb.MongoClient;
+
 import cqrs.core.Repository;
 import cqrs.core.bus.FakeBus;
+import cqrs.core.eventstore.EventStoreImpl;
+import cqrs.core.repository.RepositoryImpl;
 import cqrs.mr.commandhandlers.CheckInItemsToInventoryHandler;
 import cqrs.mr.commandhandlers.CreateInventoryItemHandler;
 import cqrs.mr.commandhandlers.DeactivateInventoryItemHandler;
@@ -22,24 +28,28 @@ import cqrs.mr.commands.DeactivateInventoryItem;
 import cqrs.mr.commands.RemoveItemsFromInventory;
 import cqrs.mr.commands.RenameInventoryItem;
 import cqrs.mr.domain.InventoryItem;
-import cqrs.mr.domain.RepositoryImpl;
 import cqrs.mr.events.InventoryItemCreated;
 import cqrs.mr.events.InventoryItemDeactivated;
 import cqrs.mr.events.InventoryItemRenamed;
 import cqrs.mr.events.ItemsCheckedInToInventory;
 import cqrs.mr.events.ItemsRemovedFromInventory;
-import cqrs.mr.eventstore.EventStoreImpl;
-import cqrs.mr.readModel.ListView;
 import cqrs.mr.readModel.ReadModelFacade;
-import cqrs.mr.readModel.detailsview.DetailsView;
+import cqrs.mr.readModel.mongo.DetailsView;
 
 public class HomeServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private RequestProcessor requestProcessor;
+	MongoClient mongo;
 
 	public void init() throws ServletException {
+
+		try {
+			mongo = new MongoClient();
+		} catch (UnknownHostException e) {
+			throw new ServletException(e);
+		}
 		requestProcessor = new RequestProcessor();
 		
 		//
@@ -57,20 +67,13 @@ public class HomeServlet extends HttpServlet {
         
         //--event handlers: details view
         DetailsView detailsView = new DetailsView();
-        bus.registerHandler(InventoryItemCreated.class,detailsView.createInventoryItemCreatedHandler());
-        bus.registerHandler(InventoryItemDeactivated.class, detailsView.createInventoryItemDeactivatedHandler());
-        bus.registerHandler(InventoryItemRenamed.class, detailsView.createInventoryItemRenamedHandler());
-        bus.registerHandler(ItemsCheckedInToInventory.class, detailsView.createItemsCheckedInToInventoryHandler());
-        bus.registerHandler(ItemsRemovedFromInventory.class, detailsView.createItemsRemovedFromInventoryHandler());
+        bus.registerHandler(InventoryItemCreated.class,detailsView.createInventoryItemCreatedHandler(mongo));
+        bus.registerHandler(InventoryItemDeactivated.class, detailsView.createInventoryItemDeactivatedHandler(mongo));
+        bus.registerHandler(InventoryItemRenamed.class, detailsView.createInventoryItemRenamedHandler(mongo));
+        bus.registerHandler(ItemsCheckedInToInventory.class, detailsView.createItemsCheckedInToInventoryHandler(mongo));
+        bus.registerHandler(ItemsRemovedFromInventory.class, detailsView.createItemsRemovedFromInventoryHandler(mongo));
 
-        //--event handlers: list view
-        ListView listView = new ListView();
-        bus.registerHandler(InventoryItemCreated.class, listView.createInventoryItemCreatedHandler());
-        bus.registerHandler(InventoryItemRenamed.class, listView.createInventoryItemRenamedHandler());
-        bus.registerHandler(InventoryItemDeactivated.class, listView.createInventoryItemDeactivatedHandler());
-
-
-   		ReadModelFacade readmodel = new ReadModelFacade();
+   		ReadModelFacade readmodel = new ReadModelFacade(mongo);
         Controller controller = new HomeController(bus,readmodel);
         requestProcessor.setController(controller);
 	}

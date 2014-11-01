@@ -1,7 +1,11 @@
 package ui.mvc;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import cqrs.core.bus.FakeBus;
 import cqrs.mr.commands.CheckInItemsToInventory;
@@ -20,12 +24,12 @@ public class HomeController implements Controller {
 		this.readmodel = readModel;
 	}
 
-	public View index() {
+	public View index() throws JsonParseException, JsonMappingException, IOException {
 
 		return new View("index.jsp", "inventoryItems",readmodel.getInventoryItems());
 	}
 	
-	public View details(Map params) {
+	public View details(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 		
 		return new View("details.jsp", "inventoryItem", readmodel.getInventoryItemDetails(id));
@@ -43,7 +47,7 @@ public class HomeController implements Controller {
 		return new View("add.jsp");
 	}
 	
-	public View changeNamePage(Map params) {
+	public View changeNamePage(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 
 		readmodel.getInventoryItemDetails(id);
@@ -69,7 +73,7 @@ public class HomeController implements Controller {
 		return new View("index.do");
 	}
 	
-	public View checkInPage(Map params) {
+	public View checkInPage(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 
 		readmodel.getInventoryItemDetails(id);
@@ -86,7 +90,7 @@ public class HomeController implements Controller {
 		return new View("index.do");
 		
 	}
-	public View removePage(Map params) {
+	public View removePage(Map params) throws JsonParseException, JsonMappingException, IOException {
 		UUID id = getId(params);
 
 		readmodel.getInventoryItemDetails(id);
