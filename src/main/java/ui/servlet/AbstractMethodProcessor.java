@@ -26,8 +26,6 @@ public abstract class AbstractMethodProcessor implements RequestMethodProcessor 
 				result = m.invoke(controller,params);
 			}
 			return (View)result;
-		} catch (SecurityException e) {
-			throw new RuntimeException(e);
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalArgumentException e) {
