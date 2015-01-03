@@ -1,1 +1,6 @@
 Java version of Greg Young's simple CQRS sample (http://github.com/gregoryyoung/m-r)
+
+##Run it
+gradle jR
+or 
+gradle jRW
