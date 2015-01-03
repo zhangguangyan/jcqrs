@@ -37,8 +37,6 @@ public abstract class AggregateRoot {
 			
 			if (isNew)
 				changes.add(event);
-		} catch (SecurityException e) {
-			throw new RuntimeException(e);
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalArgumentException e) {

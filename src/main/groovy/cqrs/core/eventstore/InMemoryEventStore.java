@@ -1,4 +1,4 @@
-package cqrs.mr.eventstore;
+package cqrs.core.eventstore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +11,11 @@ import cqrs.core.EventStore;
 
 
 
-public class EventStoreImpl implements EventStore {
+public class InMemoryEventStore implements EventStore {
 	private final EventPublisher publisher;
 	private final HashMap<UUID, List<EventDescriptor>> current = new HashMap<UUID, List<EventDescriptor>>(); 
 	
-	public EventStoreImpl(EventPublisher publisher){
+	public InMemoryEventStore(EventPublisher publisher){
 		this.publisher = publisher;
 	}
 	

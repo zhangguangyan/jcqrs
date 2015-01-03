@@ -11,6 +11,7 @@ import ui.mvc.Controller;
 import ui.mvc.HomeController;
 import cqrs.core.Repository;
 import cqrs.core.bus.FakeBus;
+import cqrs.core.eventstore.InMemoryEventStore;
 import cqrs.mr.commandhandlers.CheckInItemsToInventoryHandler;
 import cqrs.mr.commandhandlers.CreateInventoryItemHandler;
 import cqrs.mr.commandhandlers.DeactivateInventoryItemHandler;
@@ -28,7 +29,6 @@ import cqrs.mr.events.InventoryItemDeactivated;
 import cqrs.mr.events.InventoryItemRenamed;
 import cqrs.mr.events.ItemsCheckedInToInventory;
 import cqrs.mr.events.ItemsRemovedFromInventory;
-import cqrs.mr.eventstore.EventStoreImpl;
 import cqrs.mr.readModel.ListView;
 import cqrs.mr.readModel.ReadModelFacade;
 import cqrs.mr.readModel.detailsview.DetailsView;
@@ -45,7 +45,7 @@ public class HomeServlet extends HttpServlet {
 		//
         FakeBus bus = new FakeBus();
 
-        EventStoreImpl storage = new EventStoreImpl(bus);
+        InMemoryEventStore storage = new InMemoryEventStore(bus);
         
         //--command handlers
         Repository<InventoryItem> repo = new RepositoryImpl<InventoryItem>(storage);

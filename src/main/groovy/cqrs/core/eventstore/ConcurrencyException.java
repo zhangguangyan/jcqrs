@@ -1,4 +1,4 @@
-package cqrs.mr.eventstore;
+package cqrs.core.eventstore;
 
 public class ConcurrencyException extends RuntimeException {
 
