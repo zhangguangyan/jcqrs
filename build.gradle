@@ -11,6 +11,7 @@ dependencies {
 	compile 'commons-lang:commons-lang:2.5'
 	compile 'javax.servlet:jstl:1.1.0'
 	compile 'taglibs:standard:1.1.2'
+    compile 'com.sparkjava:spark-core:2.1'
 	
 	providedCompile 'javax.servlet:servlet-api:2.5'
 
