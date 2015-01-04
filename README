@@ -4,3 +4,6 @@ Java version of Greg Young's simple CQRS sample (http://github.com/gregoryyoung/
 gradle jR
 or 
 gradle jRW
+
+##Open browser
+http://localhost:8080/jcqrs
