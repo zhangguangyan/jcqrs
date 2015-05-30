@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import cqrs.mr.readModel.listview.InventoryItemDetailsDto;
+import cqrs.mr.readModel.listview.InventoryItemListDto;
+
 public class ReadModelFacade {
 
 	public List<InventoryItemListDto> getInventoryItems() {

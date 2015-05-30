@@ -29,9 +29,9 @@ import cqrs.mr.events.InventoryItemDeactivated;
 import cqrs.mr.events.InventoryItemRenamed;
 import cqrs.mr.events.ItemsCheckedInToInventory;
 import cqrs.mr.events.ItemsRemovedFromInventory;
-import cqrs.mr.readModel.ListView;
 import cqrs.mr.readModel.ReadModelFacade;
 import cqrs.mr.readModel.detailsview.DetailsView;
+import cqrs.mr.readModel.listview.ListView;
 
 public class HomeServlet extends HttpServlet {
 

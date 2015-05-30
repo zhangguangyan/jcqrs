@@ -2,7 +2,7 @@ package cqrs.mr.readModel.detailsview;
 
 import cqrs.core.Handler;
 import cqrs.mr.events.InventoryItemRenamed;
-import cqrs.mr.readModel.InventoryItemDetailsDto;
+import cqrs.mr.readModel.listview.InventoryItemDetailsDto;
 
 public class InventoryItemRenamedHandler implements
 		Handler<InventoryItemRenamed> {

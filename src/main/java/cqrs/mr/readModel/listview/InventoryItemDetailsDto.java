@@ -1,4 +1,4 @@
-package cqrs.mr.readModel;
+package cqrs.mr.readModel.listview;
 
 import java.util.UUID;
 

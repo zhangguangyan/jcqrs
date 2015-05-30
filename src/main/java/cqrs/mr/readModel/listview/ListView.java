@@ -1,9 +1,10 @@
-package cqrs.mr.readModel;
+package cqrs.mr.readModel.listview;
 
 import cqrs.core.Handler;
 import cqrs.mr.events.InventoryItemCreated;
 import cqrs.mr.events.InventoryItemDeactivated;
 import cqrs.mr.events.InventoryItemRenamed;
+import cqrs.mr.readModel.BullShitDatabase;
 
 public class ListView {
 
