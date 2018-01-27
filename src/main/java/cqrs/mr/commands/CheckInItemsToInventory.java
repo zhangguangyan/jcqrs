@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import cqrs.core.Command;
 
-public class CheckInItemsToInventory extends Command{
+public class CheckInItemsToInventory extends Command {
 
 	public UUID id;
 	public int count;

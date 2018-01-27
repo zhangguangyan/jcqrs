@@ -23,7 +23,7 @@ import cqrs.mr.commands.DeactivateInventoryItem;
 import cqrs.mr.commands.RemoveItemsFromInventory;
 import cqrs.mr.commands.RenameInventoryItem;
 import cqrs.mr.domain.InventoryItem;
-import cqrs.mr.domain.RepositoryImpl;
+import cqrs.mr.infra.RepositoryImpl;
 import cqrs.mr.events.InventoryItemCreated;
 import cqrs.mr.events.InventoryItemDeactivated;
 import cqrs.mr.events.InventoryItemRenamed;

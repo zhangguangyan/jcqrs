@@ -1,4 +1,4 @@
-package cqrs.mr.domain;
+package cqrs.mr.infra;
 
 import java.util.List;
 import java.util.UUID;
