@@ -9,8 +9,6 @@ import cqrs.core.Event;
 import cqrs.core.EventPublisher;
 import cqrs.core.EventStore;
 
-
-
 public class InMemoryEventStore implements EventStore {
 	private final EventPublisher publisher;
 	private final HashMap<UUID, List<EventDescriptor>> current = new HashMap<UUID, List<EventDescriptor>>(); 
