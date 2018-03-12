@@ -1,4 +1,4 @@
-package ui.mvc;
+package cqrs.mr.ui.mvc;
 
 public interface Controller {
 

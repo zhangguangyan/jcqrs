@@ -1,4 +1,4 @@
-package ui.servlet;
+package cqrs.mr.ui.servlet;
 
 import java.io.IOException;
 
@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ui.mvc.Controller;
-import ui.mvc.HomeController;
+import cqrs.core.bus.EventBus;
+import cqrs.mr.ui.mvc.Controller;
+import cqrs.mr.ui.mvc.HomeController;
 import cqrs.core.Repository;
-import cqrs.core.bus.FakeBus;
+import cqrs.core.bus.CommandBus;
 import cqrs.core.eventstore.InMemoryEventStore;
 import cqrs.mr.commandhandlers.CheckInItemsToInventoryHandler;
 import cqrs.mr.commandhandlers.CreateInventoryItemHandler;
@@ -43,9 +44,9 @@ public class HomeServlet extends HttpServlet {
 		requestProcessor = new RequestProcessor();
 		
 		//
-        FakeBus bus = new FakeBus();
-
-        InMemoryEventStore storage = new InMemoryEventStore(bus);
+        CommandBus bus = new CommandBus();
+        EventBus bus2 = new EventBus();
+        InMemoryEventStore storage = new InMemoryEventStore(bus2);
         
         //--command handlers
         Repository<InventoryItem> repo = new RepositoryImpl<InventoryItem>(storage);

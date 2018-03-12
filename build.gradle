@@ -1,18 +1,20 @@
 apply plugin: 'groovy'
-apply plugin: 'war'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'jetty'
+apply plugin: 'application'
+apply plugin: 'war' //must have otherwise jsp will not work
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.13'
 	compile 'commons-lang:commons-lang:2.5'
-	compile 'javax.servlet:jstl:1.1.0'
-	compile 'taglibs:standard:1.1.2'
-	
-	providedCompile 'javax.servlet:servlet-api:2.5'
+    compile 'org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE'
+    compile 'javax.servlet:jstl:1.1.0'
+    compile 'taglibs:standard:1.1.2'
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.28'
 
-	testCompile 'org.mockito:mockito-all:1.8.5'
+    testCompile 'org.mockito:mockito-all:1.8.5'
 }
+
+mainClassName = 'cqrs.App'

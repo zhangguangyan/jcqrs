@@ -1,4 +1,4 @@
-package ui.servlet;
+package cqrs.mr.ui.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,8 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ui.mvc.Controller;
-import ui.mvc.View;
+import cqrs.mr.ui.mvc.Controller;
+import cqrs.mr.ui.mvc.View;
 
 public abstract class AbstractMethodProcessor implements RequestMethodProcessor {
 	protected View invokeMethod(Controller controller, String name, Map params) {

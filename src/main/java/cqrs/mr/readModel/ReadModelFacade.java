@@ -1,9 +1,11 @@
 package cqrs.mr.readModel;
 
-import java.util.ArrayList;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public class ReadModelFacade {
 
 	public List<InventoryItemListDto> getInventoryItems() {

@@ -4,10 +4,14 @@ import cqrs.core.Handler;
 import cqrs.core.Repository;
 import cqrs.mr.commands.CheckInItemsToInventory;
 import cqrs.mr.domain.InventoryItem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CheckInItemsToInventoryHandler implements Handler<CheckInItemsToInventory> {
 	private final Repository<InventoryItem> repository;
 
+	@Autowired
 	public CheckInItemsToInventoryHandler(Repository<InventoryItem> repository) {
 		this.repository = repository;
 	}
