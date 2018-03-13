@@ -18,7 +18,6 @@ public class CreateInventoryItemHandler implements Handler<CreateInventoryItem>{
 
 	@Override
 	public void handle(CreateInventoryItem command) {
-		System.out.println(command.name);
 		InventoryItem item = new InventoryItem(command.id, command.name);
 		repository.save(item, -1);
 	}
