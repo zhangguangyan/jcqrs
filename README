@@ -1,9 +1,11 @@
 Java version of Greg Young's simple CQRS sample (http://github.com/gregoryyoung/m-r)
 
+Springboot version
+
 ##Run it
-gradle jR
-or 
-gradle jRW
+gradlew run
 
 ##Open browser
-http://localhost:8080/jcqrs
+http://localhost:8080/
+
+
