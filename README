@@ -2,9 +2,9 @@ Java version of Greg Young's simple CQRS sample (http://github.com/gregoryyoung/
 
 Use Spring boot
 
-##Run it
+## Run it
 gradlew run
 
-##Open browser
+## Open browser
 http://localhost:8080/
 
