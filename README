@@ -1,11 +1,10 @@
 Java version of Greg Young's simple CQRS sample (http://github.com/gregoryyoung/m-r)
 
-Springboot version
+Use Spring boot
 
 ##Run it
 gradlew run
 
 ##Open browser
 http://localhost:8080/
-
 
