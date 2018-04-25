@@ -8,15 +8,11 @@ import java.util.UUID;
 import cqrs.core.Event;
 import cqrs.core.EventPublisher;
 import cqrs.core.EventStore;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class InMemoryEventStore implements EventStore {
 	private final EventPublisher publisher;
 	private final HashMap<UUID, List<EventDescriptor>> current = new HashMap<UUID, List<EventDescriptor>>(); 
 
-	@Autowired
 	public InMemoryEventStore(EventPublisher publisher){
 		this.publisher = publisher;
 	}

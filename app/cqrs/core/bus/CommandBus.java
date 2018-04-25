@@ -11,24 +11,12 @@ import cqrs.mr.domain.InventoryItem;
 import cqrs.mr.events.*;
 import cqrs.mr.infra.RepositoryImpl;
 import cqrs.mr.readModel.detailsview.DetailsView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 
-@Component
 public class CommandBus implements CommandSender {
     private final HashMap<Class<?>, List<Handler>> routes = new HashMap<Class<?>,List<Handler>>();
 
     public CommandBus() {}
 
-    @Autowired
-    public CommandBus(ApplicationContext ctx) {
-        registerHandler(CreateInventoryItem.class, ctx.getBean(CreateInventoryItemHandler.class));
-        registerHandler(CheckInItemsToInventory.class, ctx.getBean(CheckInItemsToInventoryHandler.class));
-        registerHandler(DeactivateInventoryItem.class, ctx.getBean(DeactivateInventoryItemHandler.class));
-        registerHandler(RemoveItemsFromInventory.class, ctx.getBean(RemoveItemsFromInventoryHandler.class));
-        registerHandler(RenameInventoryItem.class, ctx.getBean(RenameInventoryItemHandler.class));
-    }
     public <T extends Message> void registerHandler(Class<T> type,Handler<T> handler) {
         List<Handler> handlers = routes.get(type);
    

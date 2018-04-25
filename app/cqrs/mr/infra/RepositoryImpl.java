@@ -7,9 +7,7 @@ import cqrs.core.AggregateRoot;
 import cqrs.core.Event;
 import cqrs.core.EventStore;
 import cqrs.core.Repository;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RepositoryImpl<T extends AggregateRoot> implements Repository<T> {
 	private final EventStore eventStore;
 	

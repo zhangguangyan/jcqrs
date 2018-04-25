@@ -4,14 +4,10 @@ import cqrs.core.Handler;
 import cqrs.core.Repository;
 import cqrs.mr.commands.RemoveItemsFromInventory;
 import cqrs.mr.domain.InventoryItem;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RemoveItemsFromInventoryHandler implements Handler<RemoveItemsFromInventory>{
 	private final Repository<InventoryItem> repository;
 
-	@Autowired
 	public RemoveItemsFromInventoryHandler(Repository<InventoryItem> repository) {
 		this.repository = repository;
 	}
