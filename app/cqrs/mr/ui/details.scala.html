@@ -1,0 +1,37 @@
+@import cqrs.mr.readModel.InventoryItemDetailsDto
+@(inventoryItem: InventoryItemDetailsDto)
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+</head>
+<body>
+<h2>Item details:</h2>
+<br/>
+<table>
+<tr><td>Id:</td><td>@inventoryItem.id</td></tr>
+<tr><td>Name:</td><td>@inventoryItem.name</td></tr>
+<tr><td>Count:</td><td>@inventoryItem.currentCount</td></tr>
+</table>
+<br /><br />
+<table>
+<tr>
+<td><a href="changeNamePage.do?id=@inventoryItem.id">Rename</a></td>
+<td><a href="javascript:submit()">Deactivate</a></td>
+<td><a href="checkInPage.do?id=@inventoryItem.id">Check In</a></td>
+<td><a href="removePage.do?id=@inventoryItem.id&version=@inventoryItem.version">Remove</a></td>
+</tr>
+</table>
+<form name="deactivateForm" action="deactivate.do" method="post">
+<input type="hidden" name="id" value="@inventoryItem.id"/>
+<input type="hidden" name="version" value="@inventoryItem.version"/>
+</form>
+<script language="JavaScript" type="text/javascript">
+<!--
+function submit(){
+  document.deactivateForm.submit() ;
+}
+-->
+</script>
+</body>
+</html>

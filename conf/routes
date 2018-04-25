@@ -1,0 +1,12 @@
+GET / controllers.Assets.at(path="/public", file="index.html")
+GET /index.do cqrs.mr.ui.HomeController.index
+GET /add.do cqrs.mr.ui.HomeController.showAddPage
+POST /add.do cqrs.mr.ui.HomeController.add
+GET /details.do cqrs.mr.ui.HomeController.detailsPage(id: String)
+GET /changeNamePage.do cqrs.mr.ui.HomeController.renamePage(id: String)
+POST /changeName.do cqrs.mr.ui.HomeController.changeName
+POST /deactivate.do cqrs.mr.ui.HomeController.deactivate
+GET /checkInPage.do cqrs.mr.ui.HomeController.checkInPage(id: String)
+POST /checkIn.do cqrs.mr.ui.HomeController.checkIn
+GET /removePage.do cqrs.mr.ui.HomeController.removePage(id: String)
+POST /remove.do cqrs.mr.ui.HomeController.checkOut

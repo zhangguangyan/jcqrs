@@ -1,20 +1,30 @@
-apply plugin: 'groovy'
-apply plugin: 'application'
-apply plugin: 'war' //must have otherwise jsp will not work
+apply plugin: 'idea'
+apply plugin: 'play'
 
 repositories {
-	mavenCentral()
+    jcenter()
+    maven {
+        name "lightbend-maven-release"
+        url "https://repo.lightbend.com/lightbend/maven-releases"
+    }
+    ivy {
+        name "lightbend-ivy-release"
+        url "https://repo.lightbend.com/lightbend/ivy-releases"
+        layout "ivy"
+    }
+}
+
+model {
+    components {
+        play {
+            platform play: '2.6.13', scala: '2.12', java: '1.8'
+            injectedRoutesGenerator = true
+        }
+    }
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.13'
-	compile 'commons-lang:commons-lang:2.5'
-    compile 'org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE'
-    compile 'javax.servlet:jstl:1.1.0'
-    compile 'taglibs:standard:1.1.2'
-    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.28'
-
-    testCompile 'org.mockito:mockito-all:1.8.5'
+    play 'com.typesafe.play:play-guice_2.12:2.6.13'
+    play 'commons-lang:commons-lang:2.5'
 }
 
-mainClassName = 'cqrs.App'

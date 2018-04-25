@@ -1,0 +1,18 @@
+@import cqrs.mr.readModel.InventoryItemDetailsDto
+@(inventoryItem: InventoryItemDetailsDto)
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+</head>
+<body>
+<h2>Chec in the item: @inventoryItem.name</h2>
+<br/>
+<form name="checkInForm" action="checkIn.do" method="post">
+  <input type="hidden" name="id" value="@inventoryItem.id"/>
+  <input type="hidden" name="version" value="@inventoryItem.version"/>
+  Amount: <input type="text" name="count" />
+  <input type="submit" value="Submit" />
+</form>
+</body>
+</html>
