@@ -17,13 +17,13 @@ public class RepositoryImpl<T extends AggregateRoot> implements Repository<T> {
 
 	@Override
 	public void save(T aggregate, int expectedVersion) {
-		eventStore.saveEvents(aggregate.id, aggregate.getUncommittedChanges(), expectedVersion);
+		eventStore.saveEvents(aggregate.id(), aggregate.getUncommittedChanges(), expectedVersion);
 	}
 
 	@Override
 	public T getById(Class<T> type,UUID id) {
 		try {
-			T obj = type.newInstance();
+			T obj = type.newInstance(); //call default constructor
 			List<Event> history = eventStore.getEventsForAggregate(id);
 			obj.loadsFromHistory(history);
 			
