@@ -11,6 +11,6 @@ public class InventoryItemRenamedHandler implements
 	public void handle(InventoryItemRenamed message) {
         InventoryItemDetailsDto d = DetailsView.getDetailsItem(message.id);
         d.name = message.newName;
-        d.version = message.version;
+        d.version = message.version();
 	}
 }

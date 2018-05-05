@@ -30,7 +30,7 @@ public class InMemoryEventStore implements EventStore {
         int i = expectedVersion;
         for (Event event : events){
             i++;
-            event.version = i;
+            event.version_$eq(i);
             eventDescriptors.add(new EventDescriptor(aggregateId,event,i));
             publisher.publish(event);
         }

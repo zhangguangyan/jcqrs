@@ -11,6 +11,6 @@ public class ItemsRemovedFromInventoryHandler implements
 	public void handle(ItemsRemovedFromInventory message) {
 		InventoryItemDetailsDto d = DetailsView.getDetailsItem(message.id);
 		d.currentCount = message.count;
-		d.version = message.version;
+		d.version = message.version();
 	}
 }

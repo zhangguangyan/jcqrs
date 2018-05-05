@@ -11,6 +11,6 @@ public class ItemsCheckedInToInventoryHandler implements
 	public void handle(ItemsCheckedInToInventory message) {
 		InventoryItemDetailsDto d = DetailsView.getDetailsItem(message.id);
 		d.currentCount = message.count;
-		d.version = message.version;
+		d.version = message.version();
 	}
 }
