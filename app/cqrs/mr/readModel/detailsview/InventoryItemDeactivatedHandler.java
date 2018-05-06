@@ -8,6 +8,6 @@ public class InventoryItemDeactivatedHandler implements Handler<InventoryItemDea
 
 	@Override
 	public void handle(InventoryItemDeactivated message) {
-		BullShitDatabase.details.remove(message.id);
+		BullShitDatabase.details.remove(message.id());
 	}
 }

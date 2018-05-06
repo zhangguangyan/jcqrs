@@ -9,8 +9,8 @@ public class ItemsRemovedFromInventoryHandler implements
 
 	@Override
 	public void handle(ItemsRemovedFromInventory message) {
-		InventoryItemDetailsDto d = DetailsView.getDetailsItem(message.id);
-		d.currentCount = message.count;
+		InventoryItemDetailsDto d = DetailsView.getDetailsItem(message.id());
+		d.currentCount = message.count();
 		d.version = message.version();
 	}
 }

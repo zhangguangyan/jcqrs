@@ -8,6 +8,6 @@ import cqrs.mr.readModel.InventoryItemDetailsDto;
 public class InventoryItemCreatedHandler implements Handler<InventoryItemCreated>{
 	@Override
 	public void handle(InventoryItemCreated message) {
-		BullShitDatabase.details.put(message.id, new InventoryItemDetailsDto(message.id, message.name, 0,0));
+		BullShitDatabase.details.put(message.id(), new InventoryItemDetailsDto(message.id(), message.name(), 0,0));
 	}
 }

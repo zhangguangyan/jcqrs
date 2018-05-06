@@ -11,7 +11,7 @@ public class ListView {
 		return new Handler<InventoryItemCreated>() {
 			@Override
 			public void handle(InventoryItemCreated message) {
-				BullShitDatabase.list.add(new InventoryItemListDto(message.id, message.name));
+				BullShitDatabase.list.add(new InventoryItemListDto(message.id(), message.name()));
 			}
 		};
 	}
@@ -21,8 +21,8 @@ public class ListView {
 			@Override
 			public void handle(InventoryItemRenamed message) {
 				for (InventoryItemListDto item : BullShitDatabase.list) {//simple solution, don't use it in production code!
-					if (item.id.equals(message.id)) {
-						item.name = message.newName;
+					if (item.id.equals(message.id())) {
+						item.name = message.newName();
 						break;
 					}
 				}
@@ -35,7 +35,7 @@ public class ListView {
 			@Override
 			public void handle(InventoryItemDeactivated message) {
 				for (InventoryItemListDto item : BullShitDatabase.list) {//simple solution, don't use it in production code!
-					if (item.id.equals(message.id)) {
+					if (item.id.equals(message.id())) {
 						BullShitDatabase.list.remove(item);
 						break;
 					}
