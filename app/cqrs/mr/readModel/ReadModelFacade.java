@@ -11,11 +11,11 @@ public class ReadModelFacade {
 //		List<InventoryItemListDto> items = new ArrayList<InventoryItemListDto>();
 //		items.add(new InventoryItemListDto(UUID.randomUUID(),"name1111"));
 //		return items;
-		return BullShitDatabase.list;
+		return BullShitDatabase.list();
 	}
 
 	public InventoryItemDetailsDto getInventoryItemDetails(UUID id) {
 		//return new InventoryItemDetailsDto(id,"name",10,1);
-		return BullShitDatabase.details.get(id);
+		return BullShitDatabase.details().get(id);
 	}
 }

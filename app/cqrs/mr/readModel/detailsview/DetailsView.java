@@ -33,7 +33,7 @@ public class DetailsView {
 	}
 
     public static InventoryItemDetailsDto getDetailsItem(UUID id) {
-        InventoryItemDetailsDto d= BullShitDatabase.details.get(id);
+        InventoryItemDetailsDto d= BullShitDatabase.details().get(id);
         
         if (d==null) {
             throw new InvalidOperationException("did not find the original inventory this shouldnt happen");
