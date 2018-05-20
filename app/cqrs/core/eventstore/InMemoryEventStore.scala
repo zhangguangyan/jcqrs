@@ -11,9 +11,9 @@ import cqrs.core.EventPublisher
 import cqrs.core.EventStore
 
 class InMemoryEventStore(publisher: EventPublisher) extends EventStore {
-  private val current = new HashMap[UUID, List[EventDescriptor]]();
+  private val current = new HashMap[UUID, List[EventDescriptor]]()
 
-  def saveEvents(aggregateId: UUID, events: List[Event], expectedVersion: Int) {
+  def saveEvents(aggregateId: UUID, events: List[Event], expectedVersion: Int): Unit = {
     var eventDescriptors = current.get(aggregateId)
     if (eventDescriptors == null) {
       eventDescriptors = new ArrayList[EventDescriptor]()

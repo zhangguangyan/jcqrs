@@ -1,16 +1,13 @@
 package cqrs.core.bus;
 
+import cqrs.core.Command;
+import cqrs.core.CommandSender;
+import cqrs.core.Handler;
+import cqrs.core.Message;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import cqrs.core.*;
-import cqrs.mr.commandhandlers.*;
-import cqrs.mr.commands.*;
-import cqrs.mr.domain.InventoryItem;
-import cqrs.mr.events.*;
-import cqrs.mr.infra.RepositoryImpl;
-import cqrs.mr.readModel.detailsview.DetailsView;
 
 public class CommandBus implements CommandSender {
     private final HashMap<Class<?>, List<Handler>> routes = new HashMap<Class<?>,List<Handler>>();

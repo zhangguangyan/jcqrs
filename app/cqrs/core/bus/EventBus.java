@@ -1,11 +1,9 @@
 package cqrs.core.bus;
 
-import cqrs.core.*;
-import cqrs.mr.commandhandlers.*;
-import cqrs.mr.commands.*;
-import cqrs.mr.events.*;
-import cqrs.mr.readModel.ListView;
-import cqrs.mr.readModel.detailsview.DetailsView;
+import cqrs.core.Event;
+import cqrs.core.EventPublisher;
+import cqrs.core.Handler;
+import cqrs.core.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
