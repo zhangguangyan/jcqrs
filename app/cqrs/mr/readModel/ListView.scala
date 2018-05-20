@@ -1,13 +1,11 @@
 package cqrs.mr.readModel
 
+import cqrs.core.Handler
+import cqrs.mr.events.{InventoryItemCreated, InventoryItemDeactivated, InventoryItemRenamed}
+
 import scala.collection.JavaConverters._
 
-import cqrs.core.Handler
-import cqrs.mr.events.InventoryItemCreated
-import cqrs.mr.events.InventoryItemDeactivated
-import cqrs.mr.events.InventoryItemRenamed
-
-class ListView {
+object ListView {
 
   def createInventoryItemCreatedHandler(): Handler[InventoryItemCreated] = {
     (message: InventoryItemCreated) => {
@@ -17,13 +15,16 @@ class ListView {
 
   def createInventoryItemRenamedHandler(): Handler[InventoryItemRenamed] = {
     (message: InventoryItemRenamed) => {
-      BullShitDatabase.list.asScala.filter(item => item.id == message.id)
+      val item = BullShitDatabase.list.asScala.find(item => item.id == message.id).get
+      item.name = message.newName
     }
   }
 
   def createInventoryItemDeactivatedHandler(): Handler[InventoryItemDeactivated] = {
     (message: InventoryItemDeactivated) => {
-      BullShitDatabase.list.asScala.filter(item => item.id != message.id)
+      val items = BullShitDatabase.list.asScala
+      val pos = items.indexWhere(item => item.id == message.id)
+      items.remove(pos)
     }
   }
 }

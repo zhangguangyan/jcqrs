@@ -3,7 +3,6 @@ package cqrs.mr.ui
 import java.util
 import java.util.UUID
 
-import cqrs.core.{Event, EventPublisher}
 import cqrs.core.bus.{CommandBus, EventBus}
 import cqrs.core.eventstore.InMemoryEventStore
 import cqrs.mr.commandhandlers._
@@ -11,25 +10,22 @@ import cqrs.mr.commands._
 import cqrs.mr.domain.InventoryItem
 import cqrs.mr.events._
 import cqrs.mr.infra.RepositoryImpl
-import cqrs.mr.readModel.detailsview.DetailsView
-import cqrs.mr.readModel.{InventoryItemDetailsDto, InventoryItemListDto, ListView, ReadModelFacade}
+import cqrs.mr.readModel._
 import javax.inject.Inject
 import play.api.mvc.{AbstractController, ControllerComponents}
 
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   val eventBus = new EventBus()
-  val detailsView = new DetailsView()
-  eventBus.registerHandler(classOf[InventoryItemCreated], detailsView.createInventoryItemCreatedHandler());
-  eventBus.registerHandler(classOf[InventoryItemDeactivated], detailsView.createInventoryItemDeactivatedHandler());
-  eventBus.registerHandler(classOf[InventoryItemRenamed], detailsView.createInventoryItemRenamedHandler());
-  eventBus.registerHandler(classOf[ItemsCheckedInToInventory], detailsView.createItemsCheckedInToInventoryHandler());
-  eventBus.registerHandler(classOf[ItemsRemovedFromInventory], detailsView.createItemsRemovedFromInventoryHandler());
+  eventBus.registerHandler(classOf[InventoryItemCreated], DetailsView.createInventoryItemCreatedHandler())
+  eventBus.registerHandler(classOf[InventoryItemDeactivated], DetailsView.createInventoryItemDeactivatedHandler())
+  eventBus.registerHandler(classOf[InventoryItemRenamed], DetailsView.createInventoryItemRenamedHandler())
+  eventBus.registerHandler(classOf[ItemsCheckedInToInventory], DetailsView.createItemsCheckedInToInventoryHandler())
+  eventBus.registerHandler(classOf[ItemsRemovedFromInventory], DetailsView.createItemsRemovedFromInventoryHandler())
 
   //--event handlers: list view
-  val listView = new ListView();
-  eventBus.registerHandler(classOf[InventoryItemCreated], listView.createInventoryItemCreatedHandler());
-  eventBus.registerHandler(classOf[InventoryItemRenamed], listView.createInventoryItemRenamedHandler());
-  eventBus.registerHandler(classOf[InventoryItemDeactivated], listView.createInventoryItemDeactivatedHandler());
+  eventBus.registerHandler(classOf[InventoryItemCreated], ListView.createInventoryItemCreatedHandler())
+  eventBus.registerHandler(classOf[InventoryItemRenamed], ListView.createInventoryItemRenamedHandler())
+  eventBus.registerHandler(classOf[InventoryItemDeactivated], ListView.createInventoryItemDeactivatedHandler())
 
   val eventStore = new InMemoryEventStore(eventBus)
   val repo = new RepositoryImpl[InventoryItem](eventStore)

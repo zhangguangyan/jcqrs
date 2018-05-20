@@ -1,9 +1,6 @@
 package cqrs.mr.readModel
 
-import org.springframework.stereotype.Component
-
-import java.util.List
-import java.util.UUID
+import java.util.{List, UUID}
 
 class ReadModelFacade {
 
