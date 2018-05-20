@@ -11,11 +11,15 @@ import cqrs.mr.events.InventoryItemRenamed
 import cqrs.mr.events.ItemsCheckedInToInventory
 import cqrs.mr.events.ItemsRemovedFromInventory
 
-class InventoryItem(var id: UUID, private var name: String) extends AggregateRoot {
+class InventoryItem extends AggregateRoot {
+  private var name: String = null
   private var currentCount: Int = 0
   private var activated: Boolean = true
 
-  applyChange(new InventoryItemCreated(id, name))
+  def this(id: UUID, name: String) {
+    this()
+    applyChange(new InventoryItemCreated(id, name))
+  }
 
   def changeName(newName: String) {
     if (StringUtils.isEmpty(newName)) throw new IllegalArgumentException("newName")
@@ -64,9 +68,5 @@ class InventoryItem(var id: UUID, private var name: String) extends AggregateRoo
   protected def apply(e: InventoryItemDeactivated) {
     this.id = e.id
     this.activated = false
-  }
-
-  def this() {
-    this(null, null)
   }
 }

@@ -9,7 +9,7 @@ import java.util.UUID
 abstract class AggregateRoot {
 	private val changes = new ArrayList[Event]()
 
-	var id: UUID // public abstract Guid Id { get; }
+	var id: UUID = null // public abstract Guid Id { get; }
 	var version: Int = 0 // { get; internal set; }
 
 	def getUncommittedChanges(): List[Event] = changes
