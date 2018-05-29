@@ -28,3 +28,7 @@ dependencies {
     play 'commons-lang:commons-lang:2.5'
 }
 
+tasks.withType(PlatformScalaCompile) {
+    options.compilerArgs << "-Xlint:unchecked"
+}
+
