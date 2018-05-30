@@ -4,4 +4,4 @@ import java.util.UUID
 
 import cqrs.core.Command
 
-class DeactivateInventoryItem(val id: UUID , val originalVersion: Int) extends Command
+class DeactivateInventoryItem(val id: UUID, val originalVersion: Int) extends Command

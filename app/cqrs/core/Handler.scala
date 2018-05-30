@@ -1,5 +1,5 @@
 package cqrs.core
 
 trait Handler[T <: Message] {
-	def handle(message: T): Unit
+  def handle(message: T): Unit
 }

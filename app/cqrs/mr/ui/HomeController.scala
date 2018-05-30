@@ -73,38 +73,39 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def add() = Action(parse.formUrlEncoded) { request =>
-    def name = request.body("name")(0)
+    val name = request.body("name")(0)
     bus.send(new CreateInventoryItem(UUID.randomUUID, name))
     Redirect("index.do")
   }
 
   def changeName() = Action(parse.formUrlEncoded) { request =>
-    def id = request.body("id")(0)
-    def name = request.body("newName")(0)
+    val id = request.body("id")(0)
+    val name = request.body("newName")(0)
     val version: String = request.body("version")(0)
     bus.send(new RenameInventoryItem(UUID.fromString(id), name, version.toInt))
     Redirect("index.do")
   }
 
   def deactivate() = Action(parse.formUrlEncoded) { request =>
-    def id = request.body("id")(0)
-    def version = request.body("version")(0)
+    val id = request.body("id")(0)
+    val version = request.body("version")(0)
     bus.send(new DeactivateInventoryItem(UUID.fromString(id), version.toInt))
     Redirect("index.do")
   }
 
   def checkIn() = Action(parse.formUrlEncoded) { request =>
-    def id = request.body("id")(0)
-    def version = request.body("version")(0)
-    def count = request.body("count")(0)
+    val id = request.body("id")(0)
+    val version = request.body("version")(0)
+    val count = request.body("count")(0)
     bus.send(new CheckInItemsToInventory(UUID.fromString(id), count.toInt, version.toInt))
     Redirect("index.do")
   }
 
   def checkOut() = Action(parse.formUrlEncoded) { request =>
-    def id = request.body("id")(0)
-    def version = request.body("version")(0)
-    def count = request.body("count")(0)
+    val id = request.body("id")(0)
+    val version = request.body("version")(0)
+    val count = request.body("count")(0)
+
     bus.send(new RemoveItemsFromInventory(UUID.fromString(id), count.toInt, version.toInt))
     Redirect("index.do")
   }
