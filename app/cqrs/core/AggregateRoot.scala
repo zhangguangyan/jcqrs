@@ -1,31 +1,29 @@
 package cqrs.core
 
-import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
-import java.util.ArrayList
-import java.util.List
+import java.lang.reflect.{InvocationTargetException, Method}
+import java.util
 import java.util.UUID
 
 abstract class AggregateRoot {
-  private val changes = new ArrayList[Event]()
+  private val changes = new util.ArrayList[Event]()
 
   var id: UUID = null // public abstract Guid Id { get; }
   var version: Int = 0 // { get; internal set; }
 
-  def getUncommittedChanges(): List[Event] = changes
+  def getUncommittedChanges(): util.List[Event] = changes
 
   def markChangesAsCommitted(): Unit = {
     changes.clear()
   }
 
-  def loadsFromHistory(history: List[Event]): Unit = {
+  def loadsFromHistory(history: util.List[Event]): Unit = {
     history.forEach { e: Event =>
-      applyChange(e, false)
+      applyChange(e, isNew = false)
     }
   }
 
   def applyChange(event: Event): Unit = {
-    applyChange(event, true)
+    applyChange(event, isNew = true)
   }
 
   private def applyChange(event: Event, isNew: Boolean): Unit = {

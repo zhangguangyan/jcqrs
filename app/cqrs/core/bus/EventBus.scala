@@ -1,18 +1,17 @@
 package cqrs.core.bus
 
+import java.util
+
 import cqrs.core.{Event, EventPublisher, Handler, Message}
-import java.util.ArrayList
-import java.util.HashMap
-import java.util.List
 
 class EventBus extends EventPublisher {
-  private val routes = new HashMap[Class[_], List[Handler[_]]]
+  private val routes = new util.HashMap[Class[_], util.List[Handler[_]]]
 
   def registerHandler[T <: Message](typ: Class[T], handler: Handler[T]): Unit = {
     var handlers = routes.get(typ)
 
     if (handlers == null) {
-      handlers = new ArrayList[Handler[_]]()
+      handlers = new util.ArrayList[Handler[_]]()
       handlers.add(handler)
       routes.put(typ, handlers)
     } else {
@@ -21,7 +20,7 @@ class EventBus extends EventPublisher {
   }
 
   def publish[T <: Event](event: T): Unit = {
-    val handlers = routes.get(event.getClass()).asInstanceOf[List[Handler[T]]]
+    val handlers = routes.get(event.getClass()).asInstanceOf[util.List[Handler[T]]]
 
     if (handlers == null) return
 
