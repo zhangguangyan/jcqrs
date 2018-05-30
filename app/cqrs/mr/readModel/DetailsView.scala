@@ -17,19 +17,19 @@ object DetailsView {
   }
 
   def createInventoryItemCreatedHandler(): Handler[InventoryItemCreated] = {
-    (message: InventoryItemCreated) => {
+    message: InventoryItemCreated => {
       BullShitDatabase.details.put(message.id, new InventoryItemDetailsDto(message.id, message.name, 0, 0))
     }
   }
 
   def createInventoryItemDeactivatedHandler(): Handler[InventoryItemDeactivated] = {
-    (message: InventoryItemDeactivated) => {
+    message: InventoryItemDeactivated => {
       BullShitDatabase.details.remove(message.id)
     }
   }
 
   def createInventoryItemRenamedHandler(): Handler[InventoryItemRenamed] = {
-    (message: InventoryItemRenamed) => {
+    message: InventoryItemRenamed => {
       val d = BullShitDatabase.details.get(message.id)
       d.name = message.newName
       d.version = message.version
@@ -37,7 +37,7 @@ object DetailsView {
   }
 
   def createItemsCheckedInToInventoryHandler(): Handler[ItemsCheckedInToInventory] = {
-    (message: ItemsCheckedInToInventory) => {
+    message: ItemsCheckedInToInventory => {
       val d = BullShitDatabase.details.get(message.id)
       d.currentCount = message.count
       d.version = message.version
@@ -45,7 +45,7 @@ object DetailsView {
   }
 
   def createItemsRemovedFromInventoryHandler(): Handler[ItemsRemovedFromInventory] = {
-    (message: ItemsRemovedFromInventory) => {
+    message: ItemsRemovedFromInventory => {
       val d = BullShitDatabase.details.get(message.id)
       d.currentCount = message.count
       d.version = message.version

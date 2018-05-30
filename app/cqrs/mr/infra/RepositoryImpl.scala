@@ -12,7 +12,7 @@ class RepositoryImpl[T <: AggregateRoot](eventStore: EventStore) extends Reposit
 
   def getById(clazz: Class[T], id: UUID): T = {
     try {
-      val obj = clazz.newInstance() //call default constructor
+      val obj: T = clazz.newInstance() //call default constructor
       val history = eventStore.getEventsForAggregate(id)
       obj.loadsFromHistory(history)
       obj
