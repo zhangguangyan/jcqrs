@@ -1,32 +1,16 @@
 package cqrs.core.bus
 
-import java.util
+import cqrs.core.{Command, CommandSender, Handler}
 
-import cqrs.core.{Command, CommandSender, Handler, Message}
-
-class CommandBus extends CommandSender {
-  private val routes = new util.HashMap[Class[_], util.List[Handler[_]]]
-
-  def registerHandler[T <: Message](typ: Class[T], handler: Handler[T]): Unit = {
-    var handlers = routes.get(typ)
-
-    if (handlers == null) {
-      handlers = new util.ArrayList[Handler[_]]()
-      handlers.add(handler)
-      routes.put(typ, handlers)
-    } else {
-      handlers.add(handler)
-    }
-  }
-
+class CommandBus extends AbstractBus with CommandSender {
   def send[T <: Command](command: T): Unit = {
-    val handlers = routes.get(command.getClass()).asInstanceOf[util.List[Handler[T]]]
-    if (handlers != null) {
-      if (handlers.size() != 1) throw new RuntimeException("cannot send to more than one handler")
-      val handler = handlers.get(0)
-      handler.handle(command)
-    } else {
-      throw new RuntimeException("no handler registered")
+     routes.get(command.getClass()) match {
+      case Some(handlers) =>
+        if (handlers.size > 1) throw new RuntimeException("cannot send to more than one handler")
+        val handler = handlers.asInstanceOf[List[Handler[T]]].head
+        handler.handle(command)
+      case None =>
+        throw new RuntimeException("no handler registered")
     }
   }
 }
