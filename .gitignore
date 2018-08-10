@@ -1,5 +1,11 @@
 .idea/
+*.ipr
+*.iws
+*.iws
 .gradle/
+.settings/
+.project
+./classpath
 build/
 jcqrs.iml
 out/
