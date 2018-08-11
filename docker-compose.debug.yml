@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  jcqrs:
+    image: jcqrs
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005,quiet=y ${KEY}"
+# not work     JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005,quiet=y"
+    ports:
+      - 9000:9000
+      - 5005:5005
